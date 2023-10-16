@@ -18,6 +18,8 @@ class FoodTypeViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    var foodItems: [FoodModel] = []
+    
     var foodTypeCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = UICollectionView.ScrollDirection.horizontal
@@ -51,8 +53,8 @@ extension FoodTypeViewCell: UICollectionViewDelegate, UICollectionViewDataSource
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FoodTypeViewItemCell", for: indexPath) as! FoodTypeViewItemCell
-        cell.foodImage.image = UIImage(named: "beefwellington")
-        cell.foodType.text = "American"
+        cell.foodImage.image = UIImage(named: "\(foodItems[indexPath.row].foodImage)")
+        cell.foodType.text = foodItems[indexPath.row].foodType
         return cell
     }
 }

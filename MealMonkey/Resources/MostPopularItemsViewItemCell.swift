@@ -18,7 +18,6 @@ class MostPopularItemsViewItemCell : UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
         
-
     let foodImage: UIImageView = {
         let imageView = UIImageView()
         imageView.layer.cornerRadius = 10

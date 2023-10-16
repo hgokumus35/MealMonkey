@@ -10,11 +10,13 @@ import UIKit
 class HomeVC : UIViewController {
     
     var collectionView: UICollectionView?
+    var foodModel: [FoodModel] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.view.backgroundColor = .white
+        createData()
         setupUI()
         
         collectionView?.dataSource = self
@@ -31,6 +33,14 @@ class HomeVC : UIViewController {
         collectionView?.register(MostPopularItemsViewCell.self, forCellWithReuseIdentifier: "MostPopularItemsViewCell")
         collectionView?.register(RecentItemsViewCell.self, forCellWithReuseIdentifier: "RecentItemsViewCell")
         view.addSubview(collectionView ?? UICollectionView())
+    }
+    
+    func createData() {
+        foodModel.append(FoodModel(foodTitle: "Beef Wellington", foodImage: "beefwellington", foodType: "English", rating: 4.9, ratingCount: "(124 Ratings)", starImage: "star.fill"))
+        foodModel.append(FoodModel(foodTitle: "Butter Chicken", foodImage: "butterchicken", foodType: "Indian", rating: 4.5, ratingCount: "(112 Ratings)", starImage: "star.fill"))
+        foodModel.append(FoodModel(foodTitle: "Creme Brulee", foodImage: "cremebrulee", foodType: "Dessert", rating: 4.7, ratingCount: "(134 Ratings)", starImage: "star.fill"))
+        foodModel.append(FoodModel(foodTitle: "Steak Tartare", foodImage: "steaktartare", foodType: "French", rating: 4.4, ratingCount: "(102 Ratings)", starImage: "star.fill"))
+        foodModel.append(FoodModel(foodTitle: "Pizza Margherita", foodImage: "pizzamargherita", foodType: "Italian", rating: 4.9, ratingCount: "(207 Ratings)", starImage: "star.fill"))
     }
 }
 
@@ -77,6 +87,7 @@ extension HomeVC : UICollectionViewDelegate, UICollectionViewDataSource, UIColle
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if indexPath.section == 0 {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FoodTypeViewCell", for: indexPath) as! FoodTypeViewCell
+            cell.foodItems = foodModel
             return cell
         } else if indexPath.section == 1 {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TitleViewCell", for: indexPath) as! TitleViewCell
@@ -85,12 +96,12 @@ extension HomeVC : UICollectionViewDelegate, UICollectionViewDataSource, UIColle
             return cell
         } else if indexPath.section == 2 {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PopularRestaurantsViewCell", for: indexPath) as! PopularRestaurantsViewCell
-            cell.foodImage.image = UIImage(named: "beefwellington")
-            cell.foodTitle.text = "Beef Wellington"
-            cell.starImage.image = UIImage(systemName: "star.fill")
-            cell.rating.text = "4.9"
-            cell.ratingNumber.text = "(124 Ratings)"
-            cell.foodType.text = "Western Food"
+            cell.foodImage.image = UIImage(named: "\(foodModel[indexPath.row].foodImage)")
+            cell.foodTitle.text = foodModel[indexPath.row].foodTitle
+            cell.starImage.image = UIImage(systemName: foodModel[indexPath.row].starImage)
+            cell.rating.text = String(foodModel[indexPath.row].rating)
+            cell.ratingNumber.text = foodModel[indexPath.row].ratingCount
+            cell.foodType.text = foodModel[indexPath.row].foodType
             return cell
         } else if indexPath.section == 3 {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TitleViewCell", for: indexPath) as! TitleViewCell
@@ -99,6 +110,7 @@ extension HomeVC : UICollectionViewDelegate, UICollectionViewDataSource, UIColle
             return cell
         } else if indexPath.section == 4 {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MostPopularItemsViewCell", for: indexPath) as! MostPopularItemsViewCell
+            cell.foodItems = foodModel
             return cell
         } else if indexPath.section == 5 {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TitleViewCell", for: indexPath) as! TitleViewCell
@@ -108,12 +120,12 @@ extension HomeVC : UICollectionViewDelegate, UICollectionViewDataSource, UIColle
         }
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "RecentItemsViewCell", for: indexPath) as! RecentItemsViewCell
-        cell.foodImage.image = UIImage(named: "beefwellington")
-        cell.foodTitle.text = "Beef Wellington"
-        cell.starImage.image = UIImage(systemName: "star.fill")
-        cell.rating.text = "4.9"
-        cell.ratingNumber.text = "(124 Ratings)"
-        cell.foodType.text = "Western Food"
+        cell.foodImage.image = UIImage(named: "\(foodModel[indexPath.row].foodImage)")
+        cell.foodTitle.text = foodModel[indexPath.row].foodTitle
+        cell.starImage.image = UIImage(systemName: foodModel[indexPath.row].starImage)
+        cell.rating.text = String(foodModel[indexPath.row].rating)
+        cell.ratingNumber.text = foodModel[indexPath.row].ratingCount
+        cell.foodType.text = foodModel[indexPath.row].foodType
         return cell
     }
 }

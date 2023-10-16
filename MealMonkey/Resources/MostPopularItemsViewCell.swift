@@ -18,6 +18,8 @@ class MostPopularItemsViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    var foodItems: [FoodModel] = []
+    
     var mostPopularItemsCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = UICollectionView.ScrollDirection.horizontal
@@ -51,11 +53,11 @@ extension MostPopularItemsViewCell: UICollectionViewDelegate, UICollectionViewDa
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MostPopularItemsViewItemCell", for: indexPath) as! MostPopularItemsViewItemCell
-        cell.foodImage.image = UIImage(named: "beefwellington")
-        cell.foodTitle.text = "Beef Wellington"
-        cell.starImage.image = UIImage(systemName: "star.fill")
-        cell.foodType.text = "Western Food"
-        cell.rating.text = "4.9"
+        cell.foodImage.image = UIImage(named: "\(foodItems[indexPath.row].foodImage)")
+        cell.foodTitle.text = foodItems[indexPath.row].foodTitle
+        cell.starImage.image = UIImage(systemName: foodItems[indexPath.row].starImage)
+        cell.foodType.text = foodItems[indexPath.row].foodType
+        cell.rating.text = String(foodItems[indexPath.row].rating)
         return cell
     }
 }
